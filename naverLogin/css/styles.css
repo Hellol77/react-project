@@ -1,5 +1,6 @@
 @import "checkbox.css";
 @import "reset.css";
+@import "login.css";
 body {
   display: flex;
   flex-direction: column;
@@ -137,8 +138,11 @@ a:hover {
   text-decoration-line: none;
   font-size: 20px;
 }
-a > i {
+.login-ways__chosen-icon{
   color: limegreen;
+
+}
+a>i{
   position: absolute;
   margin-left: 30px;
 }
