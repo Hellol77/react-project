@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+.navbarFixed{
+position: sticky;
+top: 0;
+}
+.background {
+  background-image: url("/public/DSC03627.jpg");
+  background-size: cover;
+}
