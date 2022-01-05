@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Navbar, Container, NavDropdown, Nav } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Data from "./data";
+import Data from "./data.js";
+import Detail from "./Detail.js";
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
@@ -27,25 +28,11 @@ function App() {
           }
         />
         <Route
-          path="/detail"
+          path="/detail/:id"
           element={
             <div>
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-6">
-                    <img
-                      src="https://codingapple1.github.io/shop/shoes1.jpg"
-                      width="100%"
-                    />
-                  </div>
-                  <div className="col-md-6 mt-4">
-                    <h4 className="pt-5">상품명</h4>
-                    <p>상품설명</p>
-                    <p>120000원</p>
-                    <button className="btn btn-danger">주문하기</button>
-                  </div>
-                </div>
-              </div>{" "}
+              <NavMain />
+              <Detail shoes={shoes} />
             </div>
           }
         />
@@ -82,12 +69,16 @@ function NavMain() {
       className="navbarFixed"
     >
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/detail">
+              Detail
+            </Nav.Link>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
