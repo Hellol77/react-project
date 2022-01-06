@@ -5,9 +5,11 @@ import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Data from "./data.js";
 import Detail from "./Detail.js";
+import axios from "axios";
 
 function App() {
   let [shoes, shoes변경] = useState(Data);
+  let [재고, 재고변경]=useState([10,11,12]);
   return (
     <div className="App">
       <Routes>
@@ -23,6 +25,22 @@ function App() {
                     return <Col shoes={shoes[i]} i={i} key={i} />;
                   })}
                 </div>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    axios
+                      .get("https://codingapple1.github.io/shop/data2.json")
+                      .then((result) => {
+                        console.log(result.data);
+                        shoes변경([...shoes, ...result.data]);
+                      })
+                      .catch(() => {
+                        console.log("실패");
+                      });
+                  }}
+                >
+                  더보기
+                </button>
               </div>
             </div>
           }
@@ -32,7 +50,7 @@ function App() {
           element={
             <div>
               <NavMain />
-              <Detail shoes={shoes} />
+              <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
             </div>
           }
         />
