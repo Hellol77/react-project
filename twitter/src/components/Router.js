@@ -1,23 +1,25 @@
 /* disable-eslint */
-import React, { useState } from "react";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
-import Auth from "../routes/Auth";
-import Home from "../routes/Home";
+import React from "react";
+import { HashRouter as BrowserRouter, Route, Routes } from "react-router-dom";
+import Auth from "routes/Auth";
+import Home from "routes/Home";
 
-const AppRouter = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+const AppRouter = (props) => {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        {isLoggedIn ? (
-          <>
-            <Route path="/" element={<Home />} />
-          </>
+        {props.isLoggedIn ? (
+          
+            <Route exact path="/" element={<Home />} />
+         
         ) : (
-          <Route path="/" element={<Auth />} />
+          
+            <Route exact path="/" element={<Auth />} />
+          
+          
         )}
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 };
 export default AppRouter;
