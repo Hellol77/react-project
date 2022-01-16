@@ -1,7 +1,7 @@
+/* eslint-disable*/
 import { authService } from "fBase";
 import React, { useState } from "react";
 import {
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -11,7 +11,7 @@ import {
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newAccount, setnewAccount] = useState(true);
+  const [newAccount, setNewAccount] = useState(true);
   const [error, setError] = useState("");
   const onChange = (event) => {
     const {
@@ -42,7 +42,7 @@ const Auth = () => {
     }
   };
 
-  const toggleAccount = () => setnewAccount((prev) => !prev);
+  const toggleAccount = () => setNewAccount((prev) => !prev);
   const onSocialClick = async(event) => {
     const {
       target: { name },
