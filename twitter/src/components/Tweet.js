@@ -1,7 +1,8 @@
 /* eslint-disable*/
-import { dbService } from "fBase";
+import { dbService, storageService } from "fBase";
 import react, { useState } from "react";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 
 const Tweet = ({ tweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -11,6 +12,8 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const ok = window.confirm("delete?");
     if (ok) {
       await deleteDoc(tweetText);
+      const urlRef = ref(storageService, tweetObj.attachmentUrl);
+      await deleteObject(urlRef);
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
@@ -29,21 +32,28 @@ const Tweet = ({ tweetObj, isOwner }) => {
     <div>
       {editing ? (
         <>
-          <form>
-            <input
-              type="text"
-              placeholder="Edit tweet"
-              value={newTweet}
-              onChange={onChange}
-              required
-            />
-            <input type="submit" value="Update" onClick={onSubmit} />
-          </form>
-          <button onClick={toggleEditing}>Cancel</button>
+          {isOwner && (
+            <>
+              <form>
+                <input
+                  type="text"
+                  placeholder="Edit tweet"
+                  value={newTweet}
+                  onChange={onChange}
+                  required
+                />
+                <input type="submit" value="Update" onClick={onSubmit} />
+              </form>
+              <button onClick={toggleEditing}>Cancel</button>
+            </>
+          )}
         </>
       ) : (
         <>
           <h4>{tweetObj.text}</h4>
+          {tweetObj.attachmentUrl && (
+            <img src={tweetObj.attachmentUrl} width="50px" height="50px" />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Tweet</button>
