@@ -16,7 +16,7 @@ import { v4 } from "uuid";
 const Home = ({ userObj }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
   // const getTweets = async () => {
   //   const dbTweets = await getDocs(collection(dbService, "tweets"));
   //   dbTweets.forEach((document) => {
@@ -42,7 +42,7 @@ const Home = ({ userObj }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = "";
-    if (attachment != "") {
+    if (attachment !== "") {
       const attachmentRef = ref(storageService, `${userObj.uid}/${v4()}`);
       const response = await uploadString(
         attachmentRef,
