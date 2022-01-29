@@ -1,10 +1,13 @@
 /* eslint-disable */
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, lazy, Suspense } from "react";
 import { Navbar, Container, NavDropdown, Nav } from "react-bootstrap";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import Data from "./data.js";
-import Detail from "./Detail.js";
+// import Detail from "./Detail.js";
+let Detail = lazy(() => {
+  return import("./Detail.js");
+});
 import axios from "axios";
 import Cart from "./Cart";
 export let 재고context = React.createContext();
@@ -56,7 +59,9 @@ function App() {
             <div>
               <NavMain />
               <재고context.Provider value={재고}>
-                <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+                <Suspense fallback={<div>로딩중이에요</div>}>
+                  <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+                </Suspense>
               </재고context.Provider>
             </div>
           }
@@ -74,12 +79,12 @@ function Col(props) {
     <div
       className="col-md-4"
       onClick={() => {
-        history("/detail/" + (props.shoes.id));
+        history("/detail/" + props.shoes.id);
       }}
     >
       <img
         src={
-          "https://codingapple1.github.io/shop/shoes" + (props.i+1) + ".jpg"
+          "https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"
         }
         width="100%"
         alt=""
