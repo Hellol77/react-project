@@ -1,3 +1,3 @@
-#twitter clone
+# twitter clone
 
 react + firebase
