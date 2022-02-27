@@ -93,7 +93,7 @@ function Col(props) {
       <p>
         {props.shoes.content} & {props.shoes.price}
       </p>
-      {재고[props.i]}
+      <p>{재고[props.i]}개 남았습니다.</p>
     </div>
   );
 }
